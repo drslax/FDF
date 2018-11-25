@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onahiz <onahiz@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aelouarg <anas.elouargui@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/20 01:46:31 by onahiz            #+#    #+#             */
-/*   Updated: 2018/11/23 20:34:51 by aelouarg         ###   ########.fr       */
+/*   Created: 2018/11/25 07:24:23 by aelouarg          #+#    #+#             */
+/*   Updated: 2018/11/25 07:24:24 by aelouarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <mlx.h>
 # include <stdio.h>
 # include <math.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # define RED 0xff0000
 # define BLUE 0x0000ff
 # define GREEN 0x00ff00
@@ -42,6 +42,7 @@ typedef struct	s_map
 	char	***map;
 	int		height;
 	int		width;
+	int		err;
 }				t_map;
 
 typedef struct	s_coord
@@ -66,19 +67,16 @@ typedef struct	s_window
 	t_size	size;
 }				t_window;
 
-void			ft_string_put(t_window *fdf);
-int				press(int btn, int x, int y, void *param);
+int				m_event(int btn, int x, int y, void *param);
+int				k_event(int keycode, void *param);
+t_point			rotate(t_point p, int z, int d);
 t_coord			**create_map(t_window *w);
-int				zoom(int keycode, void *param);
-void			render_y(t_window *w);
-void			render_x(t_window *w);
-void			put_bg(t_window *w, int color);
 t_point			point(int x, int y);
 t_size			size(int w, int h);
-void			init_params(t_window *w);
-t_point			rotate(t_point p, int z, int d);
 t_map			parse(char *path);
-int				ft_abs(int value);
+void			render(t_window *w);
+void			init_params(t_window *w);
+void			ft_string_put(t_window *fdf);
 void			draw_line(t_window *w, int color, t_point p0, t_point p1);
 
 #endif

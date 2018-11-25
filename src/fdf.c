@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onahiz <onahiz@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aelouarg <anas.elouargui@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 21:35:07 by onahiz            #+#    #+#             */
-/*   Updated: 2018/11/23 20:47:03 by aelouarg         ###   ########.fr       */
+/*   Created: 2018/11/25 07:21:23 by aelouarg          #+#    #+#             */
+/*   Updated: 2018/11/25 07:21:24 by aelouarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
 
-int		press(int btn, int x, int y, void *param)
+int		m_event(int btn, int x, int y, void *param)
 {
 	static int	x0 = -1;
 	static int	y0 = -1;
@@ -39,69 +39,7 @@ int		press(int btn, int x, int y, void *param)
 	return (1);
 }
 
-void	render_y(t_window *w)
-{
-	int			i;
-	int			j;
-	int			z;
-	double		sx;
-	double		sy;
-
-	j = -1;
-	sx = w->init.s.x + w->init.margin;
-	while (++j < w->m.width)
-	{
-		i = -1;
-		z = 0;
-		sy = w->init.s.y;
-		while (++i < w->m.height)
-		{
-			draw_line(w, GREEN, rotate(point(sx, sy), z, w->init.d),
-			rotate(point(sx, sy + w->init.margin), w->map[i][j].z, w->init.d));
-			z = w->map[i][j].z;
-			sy += w->init.margin;
-		}
-		sx += w->init.margin;
-	}
-	draw_line(w, GREEN, rotate(point(w->init.s.x, w->init.s.y), z, w->init.d),
-	rotate(point(w->init.s.x, sy), z, w->init.d));
-}
-
-void	render_x(t_window *w)
-{
-	int			i;
-	int			j;
-	int			z;
-	double		sx;
-	double		sy;
-
-	i = -1;
-	sy = w->init.s.y + w->init.margin;
-	while (++i < w->m.height)
-	{
-		z = 0;
-		j = -1;
-		sx = w->init.s.x;
-		while (++j < w->m.width)
-		{
-			draw_line(w, GREEN, rotate(point(sx, sy), z, w->init.d),
-			rotate(point(sx + w->init.margin, sy), w->map[i][j].z, w->init.d));
-			z = w->map[i][j].z;
-			sx += w->init.margin;
-		}
-		sy += w->init.margin;
-	}
-	draw_line(w, GREEN, rotate(point(sx, w->init.s.y), z, w->init.d),
-	rotate(point(w->init.s.x, w->init.s.y), 0, w->init.d));
-}
-
-void    render(t_window *w)
-{
-	render_x(w);
-	render_y(w);
-}
-
-int		zoom(int keycode, void *param)
+int		k_event(int keycode, void *param)
 {
 	if (keycode == 0x35)
 		exit(1);
@@ -138,11 +76,11 @@ t_coord	**create_map(t_window *w)
 	t_coord		**map;
 
 	i = -1;
-	map = (t_coord **)malloc(sizeof(t_coord *) * w->m.height);
+	map = (t_coord **)malloc(sizeof(t_coord *) * w->m.height + 10);
 	while (++i < w->m.height)
 	{
 		j = -1;
-		map[i] = (t_coord *)malloc(sizeof(t_coord) * w->m.width);
+		map[i] = (t_coord *)malloc(sizeof(t_coord) * w->m.width + 1);
 		while (++j < w->m.width)
 		{
 			map[i][j].z = ft_atoi(w->m.map[i][j]);

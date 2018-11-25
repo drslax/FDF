@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onahiz <onahiz@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aelouarg <anas.elouargui@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/20 01:45:00 by onahiz            #+#    #+#             */
-/*   Updated: 2018/11/21 02:25:14 by onahiz           ###   ########.fr       */
+/*   Created: 2018/11/25 07:21:36 by aelouarg          #+#    #+#             */
+/*   Updated: 2018/11/25 07:21:37 by aelouarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
 
-int			ft_abs(int value)
+static int	ft_abs(int value)
 {
 	if (value < 0)
 		return (-value);

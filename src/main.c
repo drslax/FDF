@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aelouarg <anas.elouargui@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 06:56:31 by aelouarg          #+#    #+#             */
-/*   Updated: 2018/11/23 20:36:51 by aelouarg         ###   ########.fr       */
+/*   Created: 2018/11/25 07:21:47 by aelouarg          #+#    #+#             */
+/*   Updated: 2018/11/25 07:21:48 by aelouarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
 
 void	ft_string_put(t_window *fdf)
 {
@@ -28,11 +28,7 @@ void	ft_string_put(t_window *fdf)
 
 int		main(int ac, char **av)
 {
-	int			i;
-	int			j;
 	t_window	w;
-	t_map		m;
-	t_coord		**map;
 
 	if (ac == 2)
 	{
@@ -40,13 +36,18 @@ int		main(int ac, char **av)
 		w.mlx_ptr = mlx_init();
 		w.win_ptr = mlx_new_window(w.mlx_ptr, w.size.w, w.size.h, "FDF");
 		w.m = parse(av[1]);
+		if (w.m.err)
+		{
+			ft_putstr("ERROR.\n");
+			return (0);
+		}
 		w.map = create_map(&w);
-		render_y(&w);
-		render_x(&w);
-		mlx_key_hook(w.win_ptr, zoom, (void *)&w);
-		mlx_mouse_hook(w.win_ptr, press, (void *)&w);
+		render(&w);
+		mlx_key_hook(w.win_ptr, k_event, (void *)&w);
+		mlx_mouse_hook(w.win_ptr, m_event, (void *)&w);
 		ft_string_put(&w);
 		mlx_loop(w.mlx_ptr);
 	}
+	ft_putstr("wrong number of parameters.\n");
 	return (0);
 }

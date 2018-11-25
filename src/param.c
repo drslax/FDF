@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   param.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aelouarg <anas.elouargui@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 06:26:28 by aelouarg          #+#    #+#             */
-/*   Updated: 2018/11/23 06:39:18 by aelouarg         ###   ########.fr       */
+/*   Created: 2018/11/25 07:21:59 by aelouarg          #+#    #+#             */
+/*   Updated: 2018/11/25 07:22:00 by aelouarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
 
-t_point		mirror(t_point p, int x)
+t_point		point(int x, int y)
 {
-	t_point pp;
+	t_point		p;
 
-	pp.x = 2 * x - p.x;
-	pp.y = p.y;
-	return (pp);
+	p.x = x;
+	p.y = y;
+	return (p);
 }
 
-t_point		rotate(t_point p, int z, int depth)
+t_size		size(int w, int h)
 {
-	t_point	pp;
-	double	tata;
+	t_size	s;
 
-	tata = 60;
-	p.x -= 600;
-	p.y -= 600;
-	pp.x = 600 + p.x * cos(tata) - p.y * sin(tata - 90);
-	pp.y = 600 + p.x * sin(tata) + p.y * cos(tata - 90) - z * depth;
-	return (mirror(pp, 900));
+	s.w = w;
+	s.h = h;
+	return (s);
+}
+
+void		init_params(t_window *w)
+{
+	w->size.w = 1920;
+	w->size.h = 1080;
+	w->init.margin = 10;
+	w->init.d = w->init.margin / 5;
+	w->init.s = point(100, 100);
 }
